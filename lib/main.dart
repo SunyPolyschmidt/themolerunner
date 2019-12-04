@@ -32,19 +32,12 @@ class _MoleRunnerWrapper extends State<MoleRunnerWrapper> {
 
   @override
   void initState() {
-    print("before initstate");
     super.initState();
-    print("before startgame");
     startGame();
-    print("game started");
   }
 
   void startGame() async {
-    print("before image");
     image = await Flame.images.loadAll(["themole.png","background.png","spike1.png","ground.png"]);
-    //bg = Flame.images.load(<String>["background.png"]);
-   // bg = Flame.images.loadAll(<String>["background.png"]);
-    print("after image");
     game = MoleRunner(spriteImage: image[0]);
     setState(() {});
     Flame.util.addGestureRecognizer(TapGestureRecognizer()

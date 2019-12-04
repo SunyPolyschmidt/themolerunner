@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
 import'package:themolerunner/Mole/mole.dart';
-import 'package:flame/position.dart';
 import 'package:flame/components/mixins/resizable.dart';
 import 'package:themolerunner/Obstacle/obstacle.dart';
 import 'package:themolerunner/TheBackdrop/thebackdrop.dart';
@@ -21,6 +20,7 @@ class MoleRunner extends Game with Resizable {
   int timer = 0;
   int seconds = 0;
   int obsAdded = 0;
+  bool col = false;
   List<Obstacle> obstacles;
   Ground floor;
   TheBackdrop bg;
@@ -45,8 +45,10 @@ class MoleRunner extends Game with Resizable {
 
   void onTap() {
     mole.doJump();
-    print(size.toString());
-    print(mole.x);
+    print(mole.height);
+    obstacles.forEach((Obstacle obstacle){
+      print(obstacle.getX());
+    });
   }
 
   void update(double t) {
@@ -60,6 +62,7 @@ class MoleRunner extends Game with Resizable {
       seconds++;
       timer = 0;
       print(seconds);
+
     }
 
 
@@ -77,7 +80,11 @@ class MoleRunner extends Game with Resizable {
       }
     else {obsAdded = 0;}
 
-    //removeObstacle();
+    removeObstacle();
+    if(collision())
+      {
+
+      }
 
   }
 
@@ -98,7 +105,7 @@ class MoleRunner extends Game with Resizable {
     print("obstacle added");
   }
   void removeObstacle(){
-    obstacles.forEach((Obstacle obstacle){if(obstacle.removable) obstacles.remove(obstacle);});
+    obstacles.removeWhere((obstacle)=>(obstacle.removable == true));
   }
   void resize(Size size) {
     screenSize = size;
@@ -107,8 +114,15 @@ class MoleRunner extends Game with Resizable {
 
   bool collision()
   {
-    bool col = false;
-    obstacles.forEach((Obstacle obstacle){});
+    obstacles.forEach((Obstacle obstacle){
+      if(obstacle.getX()> mole.currentMole.width)
+        return;
+      else{
+        if(mole.currentMole.y >= obstacle.getHeight()) {
+          col = true;
+        }
+      }
+    });
 
     return col;
   }

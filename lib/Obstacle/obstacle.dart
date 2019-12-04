@@ -1,13 +1,8 @@
 
 import 'dart:ui';
 
-import 'package:flame/animation.dart';
-import 'package:flame/components/animation_component.dart';
 import 'package:flame/components/component.dart';
-import 'package:flame/components/composed_component.dart';
-import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
-import 'package:themolerunner/mole-runner.dart';
 import 'package:flame/components/mixins/resizable.dart';
 enum ObstacleStatus{Onscreen, Offscreen}
 class Obstacle extends PositionComponent with Resizable {
@@ -37,6 +32,14 @@ class Obstacle extends PositionComponent with Resizable {
   {
     obSprite.renderRect(canvas, obRect);
     //canvas.drawRect(obRect, obPaint);
+  }
+  double getX()
+  {
+    return obRect.left;
+  }
+  double getHeight()
+  {
+    return obRect.top;
   }
   void update(double t)
   {

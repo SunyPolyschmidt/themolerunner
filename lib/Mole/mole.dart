@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/components/component.dart';
-import 'package:flame/components/composed_component.dart';
-import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/components/mixins/resizable.dart';
 
