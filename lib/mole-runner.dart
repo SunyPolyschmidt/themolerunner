@@ -22,7 +22,6 @@ class MoleRunner extends Game with Resizable {
   int timer = 0;
   int seconds = 0;
   int obsAdded = 0;
-  int modifier = 2;
   bool col = false;
   List<Obstacle> obstacles;
   Ground floor;
