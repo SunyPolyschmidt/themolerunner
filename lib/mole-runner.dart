@@ -8,22 +8,26 @@ import 'package:themolerunner/TheBackdrop/ground.dart';
 import 'dart:math';
 
 
-Mole mole;
+
+enum MoleRunnerStatus{gameOver,playing}
 class MoleRunner extends Game with Resizable {
 
+  Mole mole;
   Random rnd;
   int min = 1;
   int max = 3;
   double tileSize;
   Size screenSize;
-  int score;
+  int score = 0;
   int timer = 0;
   int seconds = 0;
   int obsAdded = 0;
+  int modifier = 2;
   bool col = false;
   List<Obstacle> obstacles;
   Ground floor;
   TheBackdrop bg;
+  MoleRunnerStatus status = MoleRunnerStatus.playing;
 
 
   MoleRunner({Image spriteImage, String bg}) {
@@ -44,15 +48,25 @@ class MoleRunner extends Game with Resizable {
   }
 
   void onTap() {
+    if(col == true)
+      {
+        reset();
+        return;
+      }
     mole.doJump();
     print(mole.height);
     obstacles.forEach((Obstacle obstacle){
       print(obstacle.getX());
     });
+
   }
 
   void update(double t) {
     //print(size);
+    if(col == true)
+      {
+        return;
+      }
     bool firstObstacle = false;
     if(mole.screenSize==null) mole.screenSize=size;
     mole.update(t);
@@ -64,13 +78,11 @@ class MoleRunner extends Game with Resizable {
       print(seconds);
 
     }
-
-
     if(seconds % 2 == 0)
       {
-        if(seconds > 0 && firstObstacle == false)
+        if(seconds > 3 && firstObstacle == false)
           firstObstacle = true;
-        if(obsAdded == 0) {
+        if(obsAdded <= 0) {
           if (firstObstacle == true) {
             obsAdded += 1;
             addObstacle();
@@ -83,7 +95,7 @@ class MoleRunner extends Game with Resizable {
     removeObstacle();
     if(collision())
       {
-
+        gameOver();
       }
 
   }
@@ -111,6 +123,19 @@ class MoleRunner extends Game with Resizable {
     screenSize = size;
     super.resize(size);
   }
+  void reset(){
+    obstacles.clear();
+    col = false;
+    seconds = 0;
+    score = 0;
+    mole.reset();
+  }
+  void gameOver()
+  {
+    status = MoleRunnerStatus.gameOver;
+    mole.status = MoleStatus.end;
+  }
+
 
   bool collision()
   {

@@ -7,11 +7,12 @@ import 'package:flame/sprite.dart';
 import 'package:flame/components/mixins/resizable.dart';
 
 
-enum MoleStatus{wait, walking, jumping}
+enum MoleStatus{wait, walking, jumping, end}
 class Mole extends PositionComponent with Resizable{
   WaitMole waitMole;
   WalkMole walkMole;
   JumpMole jumpMole;
+  EndMole endMole;
 
   double jumpV= 0.0;
   int jCount = 0;
@@ -22,6 +23,7 @@ class Mole extends PositionComponent with Resizable{
         waitMole = WaitMole(spriteImage),
         walkMole = WalkMole(spriteImage),
         jumpMole = JumpMole(spriteImage),
+        endMole = EndMole(spriteImage),
         super();
 
   void setScreenSize(Size s) {
@@ -46,6 +48,8 @@ class Mole extends PositionComponent with Resizable{
         return walkMole;
       case MoleStatus.jumping:
         return jumpMole;
+      case MoleStatus.end:
+        return endMole;
       default:
         return waitMole;
     }
@@ -91,6 +95,11 @@ class Mole extends PositionComponent with Resizable{
 class WaitMole extends SpriteComponent{
   WaitMole(Image spriteImage)
       :super.fromSprite(42,50,Sprite.fromImage(spriteImage));
+
+}
+class EndMole extends SpriteComponent{
+  EndMole(Image spriteImage)
+      :super.fromSprite(42,55,Sprite.fromImage(spriteImage, width: 42, height: 55, y: 0, x: 344));
 
 }
 class WalkMole extends AnimationComponent{
