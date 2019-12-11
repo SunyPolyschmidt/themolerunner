@@ -52,15 +52,12 @@ class MoleRunner extends BaseGame with Resizable {
         return;
       }
     mole.doJump();
-    print(mole.height);
     obstacles.forEach((Obstacle obstacle){
-      print(obstacle.getX());
     });
 
   }
 
   void update(double t) {
-    //print(size);
     if(col == true)
       {
         return;
@@ -112,7 +109,6 @@ class MoleRunner extends BaseGame with Resizable {
     int type = 1;
     obstacles.add(Obstacle(type, size.width, size.height/2));
     obsAdded++;
-    print("obstacle added");
   }
   void removeObstacle(){
     obstacles.removeWhere((obstacle)=>(obstacle.removable == true));

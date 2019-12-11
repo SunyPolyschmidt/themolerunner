@@ -19,7 +19,6 @@ class Obstacle extends PositionComponent with Resizable {
   ObstacleStatus status = ObstacleStatus.Onscreen;
   Obstacle(int type, double x, double y)
   {
-    print("ob type $type was created");
     if(type == 1) {
       rnd = new Random();
       speed = (min + rnd.nextInt(max - min)).toDouble();
