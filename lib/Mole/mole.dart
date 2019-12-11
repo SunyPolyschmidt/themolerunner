@@ -33,13 +33,6 @@ class Mole extends PositionComponent with Resizable{
     return screenSize;
   }
 
-
-  /*void setPosition(x,y)
-  {
-    this.x = x;
-    this.y = y;
-  }
-   */
   PositionComponent get currentMole{
     switch (status){
       case MoleStatus.wait:
@@ -68,6 +61,10 @@ class Mole extends PositionComponent with Resizable{
   }
   void render(Canvas c){
     this.currentMole.render(c);
+    if(status == MoleStatus.end)
+    {
+      this.currentMole.y = groundY;
+    }
   }
   void update(double t){
     if(status == MoleStatus.jumping){
@@ -79,6 +76,7 @@ class Mole extends PositionComponent with Resizable{
     else{
       y = this.groundY;
     }
+
     updateCoordinates(t);
   }
   void updateCoordinates(double t) {

@@ -8,9 +8,8 @@ import 'package:themolerunner/TheBackdrop/ground.dart';
 import 'dart:math';
 
 
-
 enum MoleRunnerStatus{gameOver,playing}
-class MoleRunner extends Game with Resizable {
+class MoleRunner extends BaseGame with Resizable {
 
   Mole mole;
   Random rnd;
